@@ -52,4 +52,17 @@ public class DebitCardTest {
         payment.waitNotificationDeclined();
         assertEquals("DECLINED", DBHelper.getPaymentStatusDB());
     }
+
+    @Test
+    @DisplayName("Оплата несуществующей картой")
+    void DebitNonExistedCard() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardNotInBase());
+        payment.waitNotificationDeclined();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+
+
 }

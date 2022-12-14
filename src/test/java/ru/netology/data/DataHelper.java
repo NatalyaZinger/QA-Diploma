@@ -1,8 +1,12 @@
 package ru.netology.data;
 
+import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DataHelper {
 
@@ -27,6 +31,22 @@ public class DataHelper {
 
     public static Card getEmptyCard() {
         return new Card("", "", "", "", "");
+    }
+
+    public static String getMonth(int plusMonth) {
+        return LocalDate.now().plusMonths(plusMonth).format(DateTimeFormatter.ofPattern("MM"));
+    }
+    public static String getYear(int plusYear) {
+        return LocalDate.now().plusYears(plusYear).format(DateTimeFormatter.ofPattern("yy"));
+    }
+
+    public static Card getCardNotInBase() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName() + " " + faker.name().lastName();
+        String month = getMonth(0);
+        String year = getYear(1);
+        String cvv = faker.number().digits(3);
+        return new Card("1444444444444444", month, year, holder, cvv);
     }
 
 }

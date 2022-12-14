@@ -42,4 +42,19 @@ public class DBHelper {
     }
 
 
+    @SneakyThrows
+    public static long getOrderCount() {
+        var sql = "SELECT COUNT(id) as count FROM order_entity;";
+        var runner = new QueryRunner();
+        long orderCount;
+
+        try (
+                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass"));
+        ) {
+            orderCount = runner.query(conn, sql, new ScalarHandler<>());
+        }
+        return orderCount;
+    }
+
+
 }
