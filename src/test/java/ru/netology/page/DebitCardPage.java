@@ -19,7 +19,7 @@ public class DebitCardPage {
     private SelenideElement cardHolder = $(byText("Владелец")).parent().$("[class=\"input__control\"]");
     private SelenideElement cardCVV = $(byText("CVC/CVV")).parent().$("[class=\"input__control\"]");
     private SelenideElement approvedOperation = $(byText("Операция одобрена Банком.")).parent().$("[class=\"notification__content\"]");
-    private SelenideElement declineOperation = $(byText("Ошибка! Банк отказал в проведении операции.")).parent().$("[class=\"notification__content\"]");
+    private SelenideElement declinedOperation = $(byText("Ошибка! Банк отказал в проведении операции.")).parent().$("[class=\"notification__content\"]");
     private SelenideElement wrongFormatError = $(byText("Неверный формат"));
     private SelenideElement cardExpirationDateError = $(byText("Неверно указан срок действия карты"));
     private SelenideElement cardExpiredError = $(byText("Истёк срок действия карты"));
@@ -41,12 +41,13 @@ public class DebitCardPage {
         continueButton.click();
     }
 
-    public void waitNotificationApproved() {
-        approvedOperation.shouldBe(visible, Duration.ofSeconds(15));
+   public void waitNotificationApproved() {
+        approvedOperation.shouldBe(visible, Duration.ofSeconds(10));
     }
 
+
     public void waitNotificationDeclined() {
-        declineOperation.shouldBe(visible, Duration.ofSeconds(10));
+        declinedOperation.shouldBe(visible, Duration.ofSeconds(10));
     }
 
     public void waitNotificationWrongFormat() {

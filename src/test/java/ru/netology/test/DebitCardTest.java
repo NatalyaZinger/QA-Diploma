@@ -1,5 +1,6 @@
 package ru.netology.test;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.apache.commons.dbutils.DbUtils;
@@ -16,6 +17,7 @@ public class DebitCardTest {
     @BeforeEach
     public void openPage() {
         open("http://localhost:8080");
+        //Configuration.headless = true;
     }
 
     @AfterEach
@@ -43,6 +45,7 @@ public class DebitCardTest {
         assertEquals("APPROVED", DBHelper.getPaymentStatusDB());
     }
 
+
     @Test
     @DisplayName("Покупка тура с отклоненной картой и валидными данными")
     void DebitAllFieldValidDeclined() {
@@ -52,6 +55,8 @@ public class DebitCardTest {
         payment.waitNotificationDeclined();
         assertEquals("DECLINED", DBHelper.getPaymentStatusDB());
     }
+
+
 
     @Test
     @DisplayName("Оплата несуществующей картой")
