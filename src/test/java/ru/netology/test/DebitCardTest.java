@@ -7,6 +7,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.junit.jupiter.api.*;
 import ru.netology.data.DBHelper;
 import ru.netology.data.DataHelper;
+import ru.netology.page.DebitCardPage;
 import ru.netology.page.StartPage;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -118,6 +119,25 @@ public class DebitCardTest {
         assertEquals(0, DBHelper.getOrderCount());
     }
 
+    @Test
+    @DisplayName("1 символ в поле Месяц")
+    void DebitMonthOneNumber() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardMonthOneNumber());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Месяц действия карты больше 12'")
+    void DebitMonthOver12() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardMonthOver12());
+        payment.waitNotificationExpirationDateError();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
 
 
 }
