@@ -68,6 +68,56 @@ public class DebitCardTest {
         assertEquals(0, DBHelper.getOrderCount());
     }
 
+    @Test
+    @DisplayName("Номер карты из 11 символов")
+    void DebitInvalidCardNumber() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getNumberCard11Symbols());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Срок действия карты прошедший месяц текущего года")
+    void DebitPastMonthThisYear() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardPastMonth());
+        payment.waitNotificationExpirationDateError();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Срок действия карты прошедший год")
+    void DebitPastYear() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardPastYear());
+        payment.waitNotificationExpiredError();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Срок действия карты 00 текущий год")
+    void DebitMonth00ThisYear() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardMonth00ThisYear());
+        payment.waitNotificationExpirationDateError();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Срок действия карты 00 будущий год")
+    void DebitMonth00FutureYear() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardMonth00FutureYear());
+        payment.waitNotificationExpiredError();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
 
 
 }
