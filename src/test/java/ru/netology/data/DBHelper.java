@@ -4,11 +4,17 @@ import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.SQLException;
 
 
 public class DBHelper {
+
+
+    private static Connection getConn() throws SQLException {
+        return DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass"));
+    }
 
 
     @SneakyThrows
@@ -18,7 +24,7 @@ public class DBHelper {
         var deleteCreditRequest = "DELETE FROM credit_request_entity;";
         var runner = new QueryRunner();
         try (
-                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass"));
+                var conn = getConn()
         ) {
             runner.update(conn, deleteOrder);
             runner.update(conn, deletePayment);
@@ -34,7 +40,7 @@ public class DBHelper {
         String paymentStatus;
 
         try (
-                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass"));
+                var conn = getConn()
         ) {
             paymentStatus = runner.query(conn, sql, new ScalarHandler<>());
         }
@@ -48,10 +54,7 @@ public class DBHelper {
         var runner = new QueryRunner();
         String creditPaymentStatus;
 
-        try (
-                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
-                );
-        ) {
+        try (var conn = getConn()) {
             creditPaymentStatus = runner.query(conn, status, new ScalarHandler<>());
         }
 
@@ -65,9 +68,7 @@ public class DBHelper {
         var runner = new QueryRunner();
         long orderCount;
 
-        try (
-                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass"));
-        ) {
+        try (var conn = getConn()) {
             orderCount = runner.query(conn, sql, new ScalarHandler<>());
         }
         return orderCount;
@@ -80,10 +81,7 @@ public class DBHelper {
         var runner = new QueryRunner();
         long paymentCount;
 
-        try (
-                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
-                );
-        ) {
+        try (var conn = getConn()) {
             paymentCount = runner.query(conn, sql, new ScalarHandler<>());
         }
         return paymentCount;
@@ -96,10 +94,7 @@ public class DBHelper {
         var runner = new QueryRunner();
         long creditPaymentCount;
 
-        try (
-                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
-                );
-        ) {
+        try (var conn = getConn()) {
             creditPaymentCount = runner.query(conn, sql, new ScalarHandler<>());
         }
         return creditPaymentCount;

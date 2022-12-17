@@ -41,6 +41,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getApprovedCard());
         payment.waitNotificationApproved();
         assertEquals("APPROVED", DBHelper.getCreditPaymentStatusDB());
+        assertEquals(1, DBHelper.getOrderCount());
         assertEquals(1, DBHelper.getCreditPaymentCount());
 
     }
@@ -53,6 +54,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getDeclinedCard());
         payment.waitNotificationDeclined();
         assertEquals("DECLINED", DBHelper.getCreditPaymentStatusDB());
+        assertEquals(1, DBHelper.getOrderCount());
         assertEquals(1, DBHelper.getCreditPaymentCount());
     }
 
@@ -243,7 +245,6 @@ public class CreditCardTest {
         assertEquals(0, DBHelper.getOrderCount());
         assertEquals(0, DBHelper.getCreditPaymentCount());
     }
-
 
 }
 

@@ -23,9 +23,8 @@ public class DebitCardPage {
     private SelenideElement wrongFormatError = $(byText("Неверный формат"));
     private SelenideElement cardExpirationDateError = $(byText("Неверно указан срок действия карты"));
     private SelenideElement cardExpiredError = $(byText("Истёк срок действия карты"));
-    private SelenideElement requiredFieldError = $(byText("Поле обязательно для заполнения"));
 
-    private SelenideElement cancelField = $$("[class=\"icon-button__text\"]").first();
+    private SelenideElement requiredFieldError = $(byText("Поле обязательно для заполнения"));
     private SelenideElement continueButton = $$("button").find(exactText("Продолжить"));
 
     public DebitCardPage() {
@@ -44,7 +43,6 @@ public class DebitCardPage {
     public void waitNotificationApproved() {
         approvedOperation.shouldBe(visible, Duration.ofSeconds(10));
     }
-
 
     public void waitNotificationDeclined() {
         declinedOperation.shouldBe(visible, Duration.ofSeconds(10));
