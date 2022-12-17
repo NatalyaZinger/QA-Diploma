@@ -5,7 +5,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.DriverManager;
-import java.sql.SQLException;
+
 
 
 public class DBHelper {
@@ -74,40 +74,35 @@ public class DBHelper {
     }
 
 
-
-
-
-
-
     @SneakyThrows
     public static long getPaymentCount() {
         var sql = "SELECT COUNT(id) as count FROM payment_entity;";
         var runner = new QueryRunner();
-        long payCount;
+        long paymentCount;
 
         try (
                 var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
                 );
         ) {
-            payCount = runner.query(conn, sql, new ScalarHandler<>());
+            paymentCount = runner.query(conn, sql, new ScalarHandler<>());
         }
-        return payCount;
+        return paymentCount;
     }
 
 
     @SneakyThrows
-    public static long getCreditCount() {
+    public static long getCreditPaymentCount() {
         var sql = "SELECT COUNT(id) as count FROM credit_request_entity;";
         var runner = new QueryRunner();
-        long creditCount;
+        long creditPaymentCount;
 
         try (
                 var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
                 );
         ) {
-            creditCount = runner.query(conn, sql, new ScalarHandler<>());
+            creditPaymentCount = runner.query(conn, sql, new ScalarHandler<>());
         }
-        return creditCount;
+        return creditPaymentCount;
     }
 
 

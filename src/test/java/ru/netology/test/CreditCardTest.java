@@ -41,6 +41,8 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getApprovedCard());
         payment.waitNotificationApproved();
         assertEquals("APPROVED", DBHelper.getCreditPaymentStatusDB());
+        assertEquals(1, DBHelper.getCreditPaymentCount());
+
     }
 
     @Test
@@ -51,6 +53,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getDeclinedCard());
         payment.waitNotificationDeclined();
         assertEquals("DECLINED", DBHelper.getCreditPaymentStatusDB());
+        assertEquals(1, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -61,6 +64,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardNotInBase());
         payment.waitNotificationDeclined();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -71,6 +75,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getNumberCard11Symbols());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -81,6 +86,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardPastMonth());
         payment.waitNotificationExpirationDateError();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -91,6 +97,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardPastYear());
         payment.waitNotificationExpiredError();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -101,6 +108,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardMonth00ThisYear());
         payment.waitNotificationExpirationDateError();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -111,16 +119,19 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardMonth00FutureYear());
         payment.waitNotificationExpiredError();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
     @DisplayName("Один символ в поле Месяц")
     void DebitMonthOneNumber() {
         var startPage = new StartPage();
-        var payment = startPage.goToCreditPage();;
+        var payment = startPage.goToCreditPage();
+        ;
         payment.inputData(DataHelper.getCardMonthOneNumber());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -131,6 +142,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardMonthOver12());
         payment.waitNotificationExpirationDateError();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -141,6 +153,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardMonthOver12());
         payment.waitNotificationExpirationDateError();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -151,6 +164,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardYear00());
         payment.waitNotificationExpiredError();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -161,6 +175,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCardYearOneNumber());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -171,6 +186,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCyrillicCardHolder());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -181,6 +197,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getOneWorldCardHolder());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -191,6 +208,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getSpecialSymbolsCardHolder());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -201,6 +219,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getNumberCardHolder());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -211,6 +230,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCVV2number());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
     @Test
@@ -221,6 +241,7 @@ public class CreditCardTest {
         payment.inputData(DataHelper.getCVV1number());
         payment.waitNotificationWrongFormat();
         assertEquals(0, DBHelper.getOrderCount());
+        assertEquals(0, DBHelper.getCreditPaymentCount());
     }
 
 

@@ -41,7 +41,7 @@ public class DebitCardPage {
         continueButton.click();
     }
 
-   public void waitNotificationApproved() {
+    public void waitNotificationApproved() {
         approvedOperation.shouldBe(visible, Duration.ofSeconds(10));
     }
 
