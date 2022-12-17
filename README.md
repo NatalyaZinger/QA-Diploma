@@ -1,6 +1,6 @@
-Склонировать репозиторий с помощью команды git clone
+# Порядок запуска проекта
 
-Запустить Docker
+Склонировать репозиторий с помощью команды git clone
 
 Открыть тестовый проект в IntelliJ IDEA
 
@@ -15,7 +15,7 @@
 для Postgres: java -jar ./artifacts/aqa-shop.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/app
 
 
-В терминале IntelliJ IDEA выполнить команду для запуска тестов
+В терминале IntelliJ IDEA выполнить команду для запуска тестов:
 
 для MySQL: ./gradlew clean test -D dbUrl=jdbc:mysql://localhost:3306/app -D dbUser=app -D dbPass=pass
 
