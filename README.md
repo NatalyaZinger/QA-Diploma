@@ -9,7 +9,12 @@
 
 4. В терминале IntelliJ IDEA выполнить команду для запуска приложения:
 
-- для MySQL: java -jar ./artifacts/aqa-shop.jar --spring.datasource.url=jdbc:mysql://localhost:3306/app
+
+- для MySQL: 
+ 
+ ```
+ java -jar ./artifacts/aqa-shop.jar --spring.datasource.url=jdbc:mysql://localhost:3306/app
+ ```
 
 
 - для Postgres: java -jar ./artifacts/aqa-shop.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/app
