@@ -43,6 +43,23 @@ public class DBHelper {
 
 
     @SneakyThrows
+    public static String getCreditPaymentStatusDB() {
+        var status = "SELECT status FROM credit_request_entity;";
+        var runner = new QueryRunner();
+        String creditPaymentStatus;
+
+        try (
+                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
+                );
+        ) {
+            creditPaymentStatus = runner.query(conn, status, new ScalarHandler<>());
+        }
+
+        return creditPaymentStatus;
+    }
+
+
+    @SneakyThrows
     public static long getOrderCount() {
         var sql = "SELECT COUNT(id) as count FROM order_entity;";
         var runner = new QueryRunner();
@@ -54,6 +71,43 @@ public class DBHelper {
             orderCount = runner.query(conn, sql, new ScalarHandler<>());
         }
         return orderCount;
+    }
+
+
+
+
+
+
+
+    @SneakyThrows
+    public static long getPaymentCount() {
+        var sql = "SELECT COUNT(id) as count FROM payment_entity;";
+        var runner = new QueryRunner();
+        long payCount;
+
+        try (
+                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
+                );
+        ) {
+            payCount = runner.query(conn, sql, new ScalarHandler<>());
+        }
+        return payCount;
+    }
+
+
+    @SneakyThrows
+    public static long getCreditCount() {
+        var sql = "SELECT COUNT(id) as count FROM credit_request_entity;";
+        var runner = new QueryRunner();
+        long creditCount;
+
+        try (
+                var conn = DriverManager.getConnection(System.getProperty("dbUrl"), System.getProperty("dbUser"), System.getProperty("dbPass")
+                );
+        ) {
+            creditCount = runner.query(conn, sql, new ScalarHandler<>());
+        }
+        return creditCount;
     }
 
 

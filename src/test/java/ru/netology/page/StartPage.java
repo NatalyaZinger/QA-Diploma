@@ -20,5 +20,10 @@ public class StartPage {
         return new DebitCardPage();
     }
 
+    public CreditCardPage goToCreditPage() {
+        creditButton.click();
+        return new CreditCardPage();
+    }
+
 
 }
