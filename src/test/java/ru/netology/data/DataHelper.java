@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DataHelper {
 
@@ -36,26 +37,28 @@ public class DataHelper {
     public static String getMonth(int plusMonth) {
         return LocalDate.now().plusMonths(plusMonth).format(DateTimeFormatter.ofPattern("MM"));
     }
+
     public static String getYear(int plusYear) {
         return LocalDate.now().plusYears(plusYear).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static Card getCardNotInBase() {
         Faker faker = new Faker();
+        String number = faker.number().digits(16);
         String holder = faker.name().firstName() + " " + faker.name().lastName();
         String month = getMonth(0);
         String year = getYear(1);
         String cvv = faker.number().digits(3);
-        return new Card("1444444444444444", month, year, holder, cvv);
+        return new Card(number, month, year, holder, cvv);
     }
 
     public static Card getNumberCard11Symbols() {
         Faker faker = new Faker();
+        String number = faker.number().digits(11);
         String holder = faker.name().firstName() + " " + faker.name().lastName();
         String month = getMonth(0);
         String year = getYear(1);
         String cvv = faker.number().digits(3);
-        String number = faker.number().digits(11);
         return new Card(number, month, year, holder, cvv);
     }
 
@@ -120,5 +123,75 @@ public class DataHelper {
         return new Card("4444444444444441", month, year, holder, cvv);
     }
 
+    public static Card getCardYear00() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName() + " " + faker.name().lastName();
+        String month = getMonth(0);
+        String cvv = faker.number().digits(3);
+        return new Card("4444444444444441", month, "00", holder, cvv);
+    }
+
+    public static Card getCardYearOneNumber() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName() + " " + faker.name().lastName();
+        String month = getMonth(0);
+        String year = faker.number().digit();
+        String cvv = faker.number().digits(3);
+        return new Card("4444444444444441", month, year, holder, cvv);
+    }
+
+    public static Card getCyrillicCardHolder() {
+        Faker faker = new Faker(new Locale("ru"));
+        String holder = faker.name().firstName() + " " + faker.name().lastName();
+        String month = getMonth(0);
+        String year = getYear(3);
+        String cvv = faker.number().digits(3);
+        return new Card("4444444444444441", month, year, holder, cvv);
+    }
+
+    public static Card getOneWorldCardHolder() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName();
+        String month = getMonth(0);
+        String year = getYear(3);
+        String cvv = faker.number().digits(3);
+        return new Card("4444444444444441", month, year, holder, cvv);
+    }
+
+    public static Card getSpecialSymbolsCardHolder() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName() + " $%*&)";
+        String month = getMonth(0);
+        String year = getYear(3);
+        String cvv = faker.number().digits(3);
+        return new Card("4444444444444441", month, year, holder, cvv);
+    }
+
+    public static Card getNumberCardHolder() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName() + " " + faker.number().digit();
+        String month = getMonth(0);
+        String year = getYear(3);
+        String cvv = faker.number().digits(3);
+        return new Card("4444444444444441", month, year, holder, cvv);
+    }
+
+    public static Card getCVV2number() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName() + " " + faker.name().lastName();
+        String month = getMonth(0);
+        String year = getYear(1);
+        String cvv = faker.number().digits(2);
+        return new Card("4444444444444441", month, year, holder, cvv);
+    }
+
+    public static Card getCVV1number() {
+        Faker faker = new Faker();
+        String holder = faker.name().firstName() + " " + faker.name().lastName();
+        String month = getMonth(0);
+        String year = getYear(1);
+        String cvv = faker.number().digits(1);
+        return new Card("4444444444444441", month, year, holder, cvv);
+    }
 
 }

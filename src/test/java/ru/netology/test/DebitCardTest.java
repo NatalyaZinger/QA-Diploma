@@ -47,7 +47,6 @@ public class DebitCardTest {
         assertEquals("APPROVED", DBHelper.getPaymentStatusDB());
     }
 
-
     @Test
     @DisplayName("Покупка тура с отклоненной картой и валидными данными")
     void DebitAllFieldValidDeclined() {
@@ -147,5 +146,86 @@ public class DebitCardTest {
         payment.waitNotificationExpirationDateError();
         assertEquals(0, DBHelper.getOrderCount());
     }
+
+    @Test
+    @DisplayName("Год действия карты 00")
+    void DebitYear00() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardYear00());
+        payment.waitNotificationExpiredError();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Один символ в поле Год")
+    void DebitYearOneNumber() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardYearOneNumber());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Имя владельца карты на кириллице")
+    void DebitCyrillicCardHolder() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCyrillicCardHolder());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Имя владельца карты из одного слова")
+    void DebitOneWordCardHolder() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getOneWorldCardHolder());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Имя владельца содержит спецсимволы")
+    void DebitSpecialSymbolsCardHolder() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getSpecialSymbolsCardHolder());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("Имя владельца содержит цифры")
+    void DebitNumberCardHolder() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getNumberCardHolder());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("CVV из двух цифр")
+    void DebitCVV2Numbers() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCVV2number());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
+    @Test
+    @DisplayName("CVV из одной цифры")
+    void DebitCVV1Number() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCVV1number());
+        payment.waitNotificationWrongFormat();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
+
 
 }
