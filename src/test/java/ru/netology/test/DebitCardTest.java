@@ -36,6 +36,7 @@ public class DebitCardTest {
         SelenideLogger.removeListener("allure");
     }
 
+
     @Test
     @DisplayName("Покупка тура с одобренной картой и валидными данными")
     void DebitAllFieldsValidApproved() {
@@ -56,8 +57,6 @@ public class DebitCardTest {
         payment.waitNotificationDeclined();
         assertEquals("DECLINED", DBHelper.getPaymentStatusDB());
     }
-
-
 
     @Test
     @DisplayName("Оплата несуществующей картой")
@@ -100,7 +99,7 @@ public class DebitCardTest {
     }
 
     @Test
-    @DisplayName("Срок действия карты 00 текущий год")
+    @DisplayName("Срок действия карты 00 текущего года")
     void DebitMonth00ThisYear() {
         var startPage = new StartPage();
         var payment = startPage.goToDebitPage();
@@ -110,7 +109,7 @@ public class DebitCardTest {
     }
 
     @Test
-    @DisplayName("Срок действия карты 00 будущий год")
+    @DisplayName("Срок действия карты 00 будущего года")
     void DebitMonth00FutureYear() {
         var startPage = new StartPage();
         var payment = startPage.goToDebitPage();
@@ -120,7 +119,7 @@ public class DebitCardTest {
     }
 
     @Test
-    @DisplayName("1 символ в поле Месяц")
+    @DisplayName("Один символ в поле Месяц")
     void DebitMonthOneNumber() {
         var startPage = new StartPage();
         var payment = startPage.goToDebitPage();
@@ -130,7 +129,7 @@ public class DebitCardTest {
     }
 
     @Test
-    @DisplayName("Месяц действия карты больше 12'")
+    @DisplayName("Месяц действия карты больше 12")
     void DebitMonthOver12() {
         var startPage = new StartPage();
         var payment = startPage.goToDebitPage();
@@ -139,5 +138,14 @@ public class DebitCardTest {
         assertEquals(0, DBHelper.getOrderCount());
     }
 
+    @Test
+    @DisplayName("Год действия карты больше 5 лет от текущего")
+    void DebitYearOverCurrentPlus5() {
+        var startPage = new StartPage();
+        var payment = startPage.goToDebitPage();
+        payment.inputData(DataHelper.getCardMonthOver12());
+        payment.waitNotificationExpirationDateError();
+        assertEquals(0, DBHelper.getOrderCount());
+    }
 
 }
