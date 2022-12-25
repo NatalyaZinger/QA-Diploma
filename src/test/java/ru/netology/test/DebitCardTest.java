@@ -151,7 +151,7 @@ public class DebitCardTest {
     void DebitYearOverCurrentPlus5() {
         var startPage = new StartPage();
         var payment = startPage.goToDebitPage();
-        payment.inputData(DataHelper.getCardMonthOver12());
+        payment.inputData(DataHelper.getCardYearOverCurrentPlus5());
         payment.waitNotificationExpirationDateError();
         assertEquals(0, DBHelper.getOrderCount());
         assertEquals(0, DBHelper.getPaymentCount());
